@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <title>RentWardrobe - Кошик</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
+            rel="stylesheet"
+    />
+    <!-- Font Awesome 6 (іконки) -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <!-- Підключення файлу зі стилями -->
+    <link rel="stylesheet" href="cart.css" />
+</head>
+<body>
+
+<!-- Верхній рядок -->
+<div class="top-message">
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+</div>
+
+<!-- Шапка -->
+<header>
+    <div class="logo">RentWardrobe</div>
+    <nav class="menu">
+        <ul>
+            <li><a href="#">Жіночий</a></li>
+            <li><a href="#">Чоловічий</a></li>
+            <li><a href="#">Пошук</a></li>
+            <li><a href="#">Особистий кабінет</a></li>
+        </ul>
+    </nav>
+    <div class="header-icons">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <i class="fa-solid fa-user"></i>
+    </div>
+</header>
+
+<!-- Основний контейнер -->
+<div class="cart-container">
+    <!-- Хлібні крихти -->
+    <div class="breadcrumbs">
+        <a href="#">RentWardrobe</a> / <span>Кошик</span>
+    </div>
+
+    <!-- Заголовок -->
+    <h2 class="cart-title">МІЙ КОШИК</h2>
+
+    <!-- Блок товару -->
+    <div class="cart-item">
+        <!-- Зображення ліворуч -->
+        <div class="item-image">
+            <img
+                    src="pictures/7238454e1994fe61aa0f9f400f187c14.jpg"
+                    alt="Сукня"
+            />
+        </div>
+
+        <!-- Правий блок: Кількість + Ціна (вгорі), Текст сукні (внизу) -->
+        <div class="item-right">
+            <!-- Верхній блок: Кількість і ціна -->
+            <div class="item-upper">
+                <div class="item-quantity">
+                    <span>Кількість:</span>
+                    <input type="number" value="1" min="1" />
+                </div>
+                <div class="item-total-price">
+                    <span>Ціна:</span>
+                    <strong>14990 грн</strong>
+                </div>
+            </div>
+
+            <!-- Нижній блок: Назва, розмір, колір -->
+            <div class="item-details">
+                <p class="item-name">Синя вечірня сукня</p>
+                <p class="item-size">Розмір: XS</p>
+                <p class="item-color">Колір: Світло-синій</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Нижній блок: Кнопка зліва, Всього праворуч -->
+    <div class="cart-bottom">
+        <button class="checkout-btn">Оформити замовлення</button>
+        <div class="cart-total">
+            <span>Всього</span>
+            <strong>14990 грн</strong>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

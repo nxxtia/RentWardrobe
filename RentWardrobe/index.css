@@ -1,0 +1,287 @@
+/* Базові стилі */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Верхній рядок з повідомленнями */
+.top-message {
+    text-align: center;
+    font-size: 0.85rem;
+    background-color: #333;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+.top-message span {
+    margin: 0 20px;
+    color: #ddd;
+}
+
+/* Шапка */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5%;
+    border-bottom: 1px solid #ddd;
+}
+.logo {
+    font-weight: 600;
+    font-size: 1.5rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Меню */
+.menu ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.menu ul li {
+    position: relative;
+}
+.menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    position: relative;
+    padding: 10px;
+}
+.menu ul li a:hover {
+    color: #333;
+}
+.menu ul li a:hover::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #333;
+}
+
+/* Підменю (випадаюче) */
+.mega-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px;
+    z-index: 9999;
+}
+
+/* При наведенні на .dropdown показуємо .mega-menu */
+.dropdown:hover .mega-menu {
+    display: block;
+}
+
+/* Підменю у стовпчик */
+.mega-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.mega-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.95rem;
+}
+.mega-menu ul li a:hover {
+    color: #333;
+}
+
+/* Правий блок іконок */
+.right-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.right-actions i {
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+/* Основний контейнер */
+.container {
+    display: flex;
+    padding: 20px 5%;
+    gap: 20px;
+}
+
+/* Ліва колонка (фільтри) */
+.filters {
+    width: 200px;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+}
+.filters h3 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.filter-group {
+    margin-bottom: 20px;
+}
+.filter-group h4 {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 1rem;
+}
+.filter-group ul {
+    list-style: none;
+}
+.filter-group ul li {
+    margin-bottom: 8px;
+}
+.filter-group ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.95rem;
+}
+.filter-group ul li a:hover {
+    color: #333;
+}
+.filter-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.filter-btn:hover {
+    background-color: #555;
+}
+
+/* Хлібні крихти */
+.breadcrumbs {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: #666;
+}
+.breadcrumbs a {
+    text-decoration: none;
+    color: #666;
+}
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+/* Заголовок + сортування (один ряд) */
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* «Товари» зліва, сортування справа */
+    margin-bottom: 20px;
+}
+.content-header h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+.sort-dropdown label {
+    margin-right: 5px;
+}
+.sort-dropdown select {
+    padding: 5px 8px;
+    font-size: 0.9rem;
+}
+
+/* Сітка товарів (по центру) */
+.product-grid {
+    display: flex;               /* Використовуємо флекс */
+    justify-content: center;     /* Центруємо по горизонталі */
+    gap: 20px;                   /* Відстань між товарними картками */
+    flex-wrap: wrap;             /* Дозволяємо перенесення на наступний ряд */
+    margin-top: 10px;            /* Невеликий відступ зверху */
+}
+.product-card {
+    position: relative;
+    border: 1px solid #eee;
+    padding: 10px;
+    text-align: center;
+    width: 220px; /* Фіксована ширина для однакового розміру карток */
+}
+.product-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+.product-card h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.1rem;
+    color: #aaa;
+    cursor: pointer;
+}
+.heart-icon:hover {
+    color: #f00;
+}
+.product-card button {
+    padding: 8px 12px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.product-card button:hover {
+    background-color: #555;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .menu ul {
+        flex-direction: column;
+    }
+    .dropdown:hover .mega-menu {
+        position: static;
+        display: block;
+    }
+    .container {
+        flex-direction: column;
+    }
+    .filters {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+    /* Заголовок + сортування в колонку */
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .product-card img {
+        height: 200px;
+    }
+}

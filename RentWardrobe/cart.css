@@ -1,0 +1,198 @@
+/* Базові стилі */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Верхній рядок з повідомленнями */
+.top-message {
+    text-align: center;
+    font-size: 0.85rem;
+    background-color: #333;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    color: #fff;
+}
+.top-message span {
+    margin: 0 20px;
+}
+
+/* Шапка */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5%;
+    border-bottom: 1px solid #ddd;
+}
+.logo {
+    font-weight: 600;
+    font-size: 1.3rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+.menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+.menu ul li a:hover {
+    color: #f00;
+}
+.header-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 1.2rem;
+}
+.header-icons i {
+    cursor: pointer;
+}
+
+/* Основний контейнер кошика */
+.cart-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Хлібні крихти */
+.breadcrumbs {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+.breadcrumbs a {
+    text-decoration: none;
+    color: #666;
+}
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+/* Заголовок */
+.cart-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+/* Блок товару */
+.cart-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.item-image img {
+    width: 200px;
+    height: 350px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+/* Правий блок */
+.item-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 15px;
+}
+
+/* Верхній блок: кількість + ціна */
+.item-upper {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.item-quantity,
+.item-total-price {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95rem;
+}
+.item-quantity input {
+    width: 50px;
+    padding: 2px;
+    margin-top: 6px;
+    font-size: 1rem;
+    text-align: center;
+}
+.item-total-price strong {
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+
+/* Нижній блок: текст сукні */
+.item-details p {
+    margin-bottom: 10px;
+}
+.item-name {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Нижній блок: кнопка зліва, "Всього" праворуч */
+.cart-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Кнопка зліва, "Всього" справа */
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    gap: 30px;
+}
+.checkout-btn {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    padding: 12px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.checkout-btn:hover {
+    background-color: #555;
+}
+.cart-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    font-size: 0.95rem;
+}
+.cart-total strong {
+    font-size: 1.2rem;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+    }
+    .item-image img {
+        width: 100%;
+        height: auto;
+    }
+    .item-upper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .cart-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

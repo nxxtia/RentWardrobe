@@ -1,0 +1,179 @@
+/* Базові стилі */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Верхній рядок з повідомленнями */
+.top-message {
+    text-align: center;
+    font-size: 0.85rem;
+    background-color: #333;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    color: #fff;
+}
+.top-message span {
+    margin: 0 20px;
+}
+
+/* Хедер */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5%;
+    border-bottom: 1px solid #ddd;
+}
+.logo {
+    font-weight: 600;
+    font-size: 1.3rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+.menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    position: relative;
+}
+.menu ul li a:hover {
+    color: #f00;
+}
+.header-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 1.2rem;
+}
+.header-icons i {
+    cursor: pointer;
+}
+
+/* Контейнер для форми авторизації */
+.auth-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Хлібні крихти */
+.breadcrumbs {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+.breadcrumbs a {
+    text-decoration: none;
+    color: #666;
+}
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+/* Заголовок */
+.auth-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Форма */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.auth-form label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.auth-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+.auth-form input:focus {
+    outline: none;
+    border-color: #333;
+}
+
+/* Блок із чекбоксом та "Забули пароль?" */
+.options-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+.remember-block {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.forgot-pass {
+    text-decoration: none;
+    color: #333;
+}
+.forgot-pass:hover {
+    color: #f00;
+}
+
+/* Кнопка входу */
+.auth-btn {
+    padding: 12px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.auth-btn:hover {
+    background-color: #555;
+}
+
+/* Посилання на реєстрацію */
+.register-row {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+.register-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+.register-link:hover {
+    color: #f00;
+}
+
+/* Адаптивність */
+@media (max-width: 480px) {
+    .auth-container {
+        margin: 20px auto;
+        padding: 0 10px;
+    }
+    .auth-title {
+        font-size: 1.5rem;
+    }
+    .auth-form input {
+        font-size: 0.95rem;
+    }
+    .auth-btn {
+        font-size: 0.95rem;
+    }
+}

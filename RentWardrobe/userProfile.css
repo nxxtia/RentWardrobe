@@ -1,0 +1,185 @@
+/* Базові стилі */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Верхній рядок з повідомленнями */
+.top-message {
+    text-align: center;
+    font-size: 0.85rem;
+    background-color: #333;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    color: #fff;
+}
+.top-message span {
+    margin: 0 20px;
+}
+
+/* Шапка */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5%;
+    border-bottom: 1px solid #ddd;
+}
+.logo {
+    font-weight: 600;
+    font-size: 1.3rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+.menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    position: relative;
+}
+.menu ul li a:hover {
+    color: #f00;
+}
+.header-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 1.2rem;
+}
+.header-icons i {
+    cursor: pointer;
+}
+
+/* Основний контейнер */
+.cabinet-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    gap: 30px;
+}
+
+/* Ліва панель меню */
+.cabinet-menu {
+    width: 200px;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+}
+.cabinet-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.cabinet-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.95rem;
+}
+.cabinet-menu ul li.active a {
+    font-weight: 600;
+    color: #f00; /* або інший колір для активного пункту */
+}
+
+/* Правий блок із контентом */
+.cabinet-content {
+    flex: 1;
+}
+.cabinet-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Особисті дані */
+.personal-info {
+    margin-bottom: 30px;
+}
+.info-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+.info-row .label {
+    font-weight: 500;
+    width: 180px; /* вирівнюємо підписи */
+}
+.info-row .value {
+    color: #333;
+}
+.note {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+/* Зміна пароля */
+.password-change {
+    margin-top: 20px;
+}
+.password-change h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.pass-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.pass-row label {
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+}
+.pass-row input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+.pass-row input:focus {
+    border-color: #333;
+    outline: none;
+}
+.save-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.save-btn:hover {
+    background-color: #555;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .cabinet-container {
+        flex-direction: column;
+    }
+    .cabinet-menu {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+    .info-row .label {
+        width: 120px; /* змінюємо для вузьких екранів */
+    }
+}
