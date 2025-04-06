@@ -4,7 +4,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8" />
-    <title>MBocharova - Авторизація</title>
+    <title>RentWardrobe - Авторизація</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -33,14 +33,6 @@
     <a href="index.html" style="color: inherit; text-decoration: none;">
         <div class="logo">RentWardrobe</div>
     </a>
-    <nav class="menu">
-        <ul>
-            <li><a href="#">Жіночий</a></li>
-            <li><a href="#">Чоловічий</a></li>
-            <li><a href="#">Пошук</a></li>
-            <li><a href="#">Особистий кабінет</a></li>
-        </ul>
-    </nav>
     <div class="header-icons">
         <a href="cart.html">
             <i class="fa-solid fa-cart-shopping"></i>
@@ -81,10 +73,16 @@
 
         <div class="register-row">
             <span>У вас ще немає акаунту?</span>
-            <a href="#" class="register-link">Зареєструватися</a>
+            <a href="register.html" class="register-link">Зареєструватися</a>
         </div>
     </form>
 </div>
+<script>
+    document.getElementById('registerLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        window.location.href = 'register.html';
+    });
+</script>
 
 </body>
 </html>
