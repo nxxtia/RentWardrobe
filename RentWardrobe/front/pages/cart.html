@@ -1,5 +1,3 @@
-<!--cart.html-->
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -7,15 +5,9 @@
     <title>RentWardrobe - Кошик</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
-            rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
     <!-- Font Awesome 6 (іконки) -->
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
     <!-- Підключення файлу зі стилями -->
     <link rel="stylesheet" href="../styles/cart.css" />
 </head>
@@ -23,9 +15,9 @@
 
 <!-- Верхній рядок -->
 <div class="top-message">
-    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
-    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
-    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
 </div>
 
 <!-- Шапка -->
@@ -42,12 +34,8 @@
         </ul>
     </nav>
     <div class="header-icons">
-        <a href="cart.html">
-            <i class="fa-solid fa-cart-shopping"></i>
-        </a>
-        <a href="userProfile.html">
-            <i class="fa-solid fa-user"></i>
-        </a>
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a href="userProfile.html"><i class="fa-solid fa-user"></i></a>
     </div>
 </header>
 
@@ -61,48 +49,64 @@
     <!-- Заголовок -->
     <h2 class="cart-title">МІЙ КОШИК</h2>
 
-    <!-- Блок товару -->
-    <div class="cart-item">
-        <!-- Зображення ліворуч -->
-        <div class="item-image">
-            <img
-                    src="../../pictures/7238454e1994fe61aa0f9f400f187c14.jpg"
-                    alt="Сукня"
-            />
-        </div>
+    <!-- Контейнер для динамічного додавання товарів -->
+    <div id="cartItemsContainer"></div>
 
-        <!-- Правий блок: Кількість + Ціна (вгорі), Текст сукні (внизу) -->
-        <div class="item-right">
-            <!-- Верхній блок: Кількість і ціна -->
-            <div class="item-upper">
-                <div class="item-quantity">
-                    <span>Кількість:</span>
-                    <input type="number" value="1" min="1" />
-                </div>
-                <div class="item-total-price">
-                    <span>Ціна:</span>
-                    <strong>14990 грн</strong>
-                </div>
-            </div>
-
-            <!-- Нижній блок: Назва, розмір, колір -->
-            <div class="item-details">
-                <p class="item-name">Синя вечірня сукня</p>
-                <p class="item-size">Розмір: XS</p>
-                <p class="item-color">Колір: Світло-синій</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Нижній блок: Кнопка зліва, Всього праворуч -->
+    <!-- Нижній блок: Кнопка оформлення замовлення та загальна сума -->
     <div class="cart-bottom">
         <button class="checkout-btn" onclick="window.location.href='checkout.html'">Оформити замовлення</button>
         <div class="cart-total">
             <span>Всього</span>
-            <strong>14990 грн</strong>
+            <strong id="totalPrice">0 грн</strong>
         </div>
     </div>
 </div>
+
+<script>
+    function renderCartItems() {
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItemsContainer.innerHTML = ''; // очищення контейнера перед відображенням
+        let totalPrice = 0;
+
+        cart.forEach(item => {
+            // Припустимо, що "price" має формат "14990 грн", тому вилучаємо число:
+            const priceNumber = parseFloat(item.price.replace(/\D/g, ''));
+            totalPrice += priceNumber * item.quantity;
+
+            // Створюємо HTML-блок для кожного товару
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'cart-item';
+            itemDiv.innerHTML = `
+        <div class="item-image">
+          <img src="${item.img}" alt="${item.title}" />
+        </div>
+        <div class="item-right">
+          <div class="item-upper">
+            <div class="item-quantity">
+              <span>Кількість:</span>
+              <input type="number" value="${item.quantity}" min="1" data-code="${item.code}" class="quantity-input" />
+            </div>
+            <div class="item-total-price">
+              <span>Ціна:</span>
+              <strong>${priceNumber * item.quantity} грн</strong>
+            </div>
+          </div>
+          <div class="item-details">
+            <p class="item-name">${item.title}</p>
+            <!-- За потребою можна додати розмір, колір і т.д. -->
+          </div>
+        </div>
+      `;
+            cartItemsContainer.appendChild(itemDiv);
+        });
+
+        document.getElementById('totalPrice').textContent = totalPrice + ' грн';
+    }
+
+    // Викликаємо функцію відразу після завантаження сторінки
+    renderCartItems();
+</script>
 
 </body>
 </html>
