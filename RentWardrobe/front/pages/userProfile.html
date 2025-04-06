@@ -1,0 +1,107 @@
+<!--userProfile.html-->
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <title>RentWardrobe - Особистий Кабінет</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
+            rel="stylesheet"
+    />
+    <!-- Font Awesome 6 (іконки) -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <!-- Підключення файлу зі стилями -->
+    <link rel="stylesheet" href="../styles/userProfile.css" />
+</head>
+<body>
+
+<!-- Верхній рядок -->
+<div class="top-message">
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+</div>
+
+<!-- Шапка -->
+<header>
+    <a href="index.html" style="color: inherit; text-decoration: none;">
+        <div class="logo">RentWardrobe</div>
+    </a>
+    <nav class="menu">
+        <ul>
+            <li><a href="#">Жіночий</a></li>
+            <li><a href="#">Чоловічий</a></li>
+            <li><a href="#">Пошук</a></li>
+            <li><a href="#">Особистий кабінет</a></li>
+        </ul>
+    </nav>
+    <div class="header-icons">
+        <a href="cart.html">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <a href="userProfile.html">
+            <i class="fa-solid fa-user"></i>
+        </a>
+    </div>
+</header>
+
+<!-- Основний контейнер -->
+<div class="cabinet-container">
+    <!-- Ліва панель меню -->
+    <aside class="cabinet-menu">
+        <ul>
+            <li class="active"><a href="#">Особисті дані</a></li>
+            <li><a href="#">Інформація про доставку</a></li>
+            <li><a href="#">Ваші замовлення</a></li>
+            <li><a href="#">Обрані</a></li>
+            <li><a href="#">Історія покупок</a></li>
+        </ul>
+    </aside>
+
+    <!-- Правий блок із контентом -->
+    <section class="cabinet-content">
+        <h2 class="cabinet-title">ОСОБИСТИЙ КАБІНЕТ</h2>
+
+        <div class="personal-info">
+            <div class="info-row">
+                <span class="label">Ваше ім'я:</span>
+                <span class="value">Ana</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Ваш номер:</span>
+                <span class="value">757957265</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Ваш email:</span>
+                <span class="value">user.email@gmail.com</span>
+            </div>
+            <p class="note">
+                Також ви можете змінити тут чи вказати і номер телефону, щоб з нами
+                зв’язуватись, якщо буде потрібно, або ввести контактну пошту hello@mbch.com
+                для отримання листів.
+            </p>
+        </div>
+
+        <div class="password-change">
+            <h3>Зміна пароля:</h3>
+            <div class="pass-row">
+                <label for="newPass">Новий пароль</label>
+                <input type="password" id="newPass" />
+            </div>
+            <div class="pass-row">
+                <label for="confirmPass">Підтвердження паролю</label>
+                <input type="password" id="confirmPass" />
+            </div>
+            <button class="save-btn">Зберегти</button>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
