@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <title>RentWardrobe</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
+            rel="stylesheet"
+    />
+    <!-- Font Awesome 6 (іконки) -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <!-- Підключення файлу зі стилями -->
+    <link rel="stylesheet" href="../styles/index.css" />
+</head>
+<body>
+
+<!-- Верхній рядок -->
+<div class="top-message">
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+</div>
+
+<!-- Хедер -->
+<header>
+    <a href="index.html" style="color: inherit; text-decoration: none;">
+        <div class="logo">RentWardrobe</div>
+    </a>
+    <nav class="menu">
+        <ul>
+            <!-- Приклади пунктів меню -->
+            <li class="dropdown">
+                <a href="#">Жіночий одяг <i class="fa fa-chevron-down"></i></a>
+                <div class="mega-menu">
+                    <ul>
+                        <li><a href="#">Вечірні сукні</a></li>
+                        <li><a href="#">Аксесуари</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Чоловічий одяг <i class="fa fa-chevron-down"></i></a>
+                <div class="mega-menu">
+                    <ul>
+                        <li><a href="#">Костюми</a></li>
+                        <li><a href="#">Взуття</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a href="#">Пошук</a></li>
+            <li><a href="#" id="profileLink">Особистий кабінет</a></li>
+        </ul>
+    </nav>
+    <div class="right-actions">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a href="#" id="profileLinkIcon"><i class="fa-solid fa-user"></i></a>
+    </div>
+</header>
+
+<div class="container">
+    <aside class="filters">
+        <h3>Фільтр</h3>
+        <div class="filter-group">
+            <h4>Колір</h4>
+            <ul>
+                <li><a href="#">Чорний</a></li>
+                <li><a href="#">Білий</a></li>
+                <li><a href="#">Червоний</a></li>
+            </ul>
+        </div>
+        <div class="filter-group">
+            <h4>Розмір</h4>
+            <ul>
+                <li><a href="#">XS</a></li>
+                <li><a href="#">S</a></li>
+                <li><a href="#">M</a></li>
+                <li><a href="#">L</a></li>
+                <li><a href="#">XL</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <section class="content-area">
+        <div class="breadcrumbs">
+            <a href="#">RentWardrobe</a> / <a href="#">Усі Товари</a>
+        </div>
+
+        <div class="content-header">
+            <h2>Товари</h2>
+            <div class="sort-dropdown">
+                <label for="sortSelect">Сортування:</label>
+                <select id="sortSelect">
+                    <option value="default">За замовчуванням</option>
+                    <option value="price-asc">Від дешевих до дорогих</option>
+                    <option value="price-desc">Від дорогих до дешевих</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Сітка товарів -->
+        <div class="product-grid">
+
+            <!-- Приклад товару 1 -->
+            <div
+                    class="product-card"
+                    data-product='{
+          "title": "Чорна вечірня сукня",
+          "img": "../../pictures/3c2a6fb6d579606632ebe669a84a5936.jpg",
+          "price": "24 990 грн",
+          "description": "Опис для чорної вечірньої сукні...",
+          "code": "NO-000001",
+          "rentPrice": "2000 грн/добу"
+        }'
+            >
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img
+                        src="../../pictures/3c2a6fb6d579606632ebe669a84a5936.jpg"
+                        alt="Вечірня сукня 1"
+                />
+                <h3>Чорна вечірня сукня</h3>
+                <button class="details-btn">Детальніше</button>
+            </div>
+
+            <!-- Приклад товару 2 -->
+            <div
+                    class="product-card"
+                    data-product='{
+          "title": "Синя вечірня сукня",
+          "img": "../../pictures/7238454e1994fe61aa0f9f400f187c14.jpg",
+          "price": "14 990 грн",
+          "description": "Опис для синьої вечірньої сукні...",
+          "code": "NO-000002",
+          "rentPrice": "1400 грн/добу"
+        }'
+            >
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img
+                        src="../../pictures/7238454e1994fe61aa0f9f400f187c14.jpg"
+                        alt="Вечірня сукня 2"
+                />
+                <h3>Синя вечірня сукня</h3>
+                <button class="details-btn">Детальніше</button>
+            </div>
+
+            <!-- Приклад товару 3 -->
+            <div
+                    class="product-card"
+                    data-product='{
+          "title": "Біла вечірня сукня",
+          "img": "../../pictures/3ccf490bd5bd4bb47ada0ebd723a83e3.jpg",
+          "price": "35 000 грн",
+          "description": "Опис для білої вечірньої сукні...",
+          "code": "NO-000003",
+          "rentPrice": "3000 грн/добу"
+        }'
+            >
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img
+                        src="../../pictures/3ccf490bd5bd4bb47ada0ebd723a83e3.jpg"
+                        alt="Вечірня сукня 3"
+                />
+                <h3>Біла вечірня сукня</h3>
+                <button class="details-btn">Детальніше</button>
+            </div>
+            <!-- Приклад товару 4 -->
+            <div
+                    class="product-card"
+                    data-product='{
+          "title": "Сіра вечірня сукня",
+          "img": "../../pictures/8b6d7a80004d9c1fc0f9be66475bcdca.jpg",
+          "price": "14 900 грн",
+          "description": "Опис для сірої вечірньої сукні...",
+          "code": "NO-000004",
+          "rentPrice": "1490 грн/добу"
+        }'
+            >
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img
+                        src="../../pictures/8b6d7a80004d9c1fc0f9be66475bcdca.jpg"
+                        alt="Вечірня сукня 4"
+                />
+                <h3>Сіра вечірня сукня</h3>
+                <button class="details-btn">Детальніше</button>
+            </div>
+            <!-- Приклад товару 5 -->
+            <div
+                    class="product-card"
+                    data-product='{
+          "title": "Чорно-рожева вечірня сукня",
+          "img": "../../pictures/82e11e7b4f02239852c326cf08544a28.jpg",
+          "price": "14 990 грн",
+          "description": "Опис для чорно-рожевої вечірньої сукні...",
+          "code": "NO-000005",
+          "rentPrice": "1000 грн/добу"
+        }'
+            >
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img
+                        src="../../pictures/82e11e7b4f02239852c326cf08544a28.jpg"
+                        alt="Вечірня сукня 5"
+                />
+                <h3>Синя вечірня сукня</h3>
+                <button class="details-btn">Детальніше</button>
+            </div>
+            <!-- Приклад товару 6 -->
+
+            <div
+                    class="product-card"
+                    data-product='{
+          "title": "Багряна вечірня сукня",
+          "img": "../../pictures/9852a3b28b2c4e6aa23044885efc3cb0.jpg",
+          "price": "16 770 грн",
+          "description": "Опис для багряної вечірньої сукні...",
+          "code": "NO-000006",
+          "rentPrice": "1600 грн/добу"
+        }'
+            >
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img
+                        src="../../pictures/9852a3b28b2c4e6aa23044885efc3cb0.jpg"
+                        alt="Вечірня сукня 6"
+                />
+                <h3>Багряна вечірня сукня</h3>
+                <button class="details-btn">Детальніше</button>
+            </div>
+            <!-- Приклад товару 7 -->
+            <div
+                    class="product-card"
+                    data-product='{
+          "title": "Чорна вечірня сукня",
+          "img": "../../pictures/d471317676b19f38a6c33aca6cd93bd9.jpg",
+          "price": "14 990 грн",
+          "description": "Опис для чорної вечірньої сукні...",
+          "code": "NO-000007",
+          "rentPrice": "1000 грн/добу"
+        }'
+            >
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img
+                        src="../../pictures/d471317676b19f38a6c33aca6cd93bd9.jpg"
+                        alt="Вечірня сукня 7"
+                />
+                <h3>Чорна вечірня сукня</h3>
+                <button class="details-btn">Детальніше</button>
+            </div>
+            <!-- Приклад товару 8 -->
+            <div
+                    class="product-card"
+                    data-product='{
+          "title": "Синя вечірня сукня",
+          "img": "../../pictures/fdd6c1eaf1bb832b5106230b7d492883.jpg",
+          "price": "15 000 грн",
+          "description": "Опис для синьої вечірньої сукні...",
+          "code": "NO-000008",
+          "rentPrice": "1000 грн/добу"
+        }'
+            >
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img
+                        src="../../pictures/fdd6c1eaf1bb832b5106230b7d492883.jpg"
+                        alt="Вечірня сукня 8"
+                />
+                <h3>Синя вечірня сукня</h3>
+                <button class="details-btn">Детальніше</button>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<script>
+
+    const detailButtons = document.querySelectorAll('.details-btn');
+
+    detailButtons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+
+            const productCard = e.target.closest('.product-card');
+
+            const productData = productCard.getAttribute('data-product');
+
+            sessionStorage.setItem('selectedProduct', productData);
+
+            window.location.href = 'product.html';
+        });
+    });
+
+    function checkAuthentication() {
+        return localStorage.getItem('isAuthenticated') === 'true';
+    }
+
+    function handleProfileClick(event) {
+        event.preventDefault();
+
+        if (checkAuthentication()) {
+            window.location.href = 'userProfile.html';
+        } else {
+            window.location.href = 'auth.html';
+        }
+    }
+
+    document.getElementById('profileLink').addEventListener('click', handleProfileClick);
+    document.getElementById('profileLinkIcon').addEventListener('click', handleProfileClick);
+</script>
+
+</body>
+</html>
+
