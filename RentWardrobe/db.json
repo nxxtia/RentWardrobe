@@ -3,8 +3,8 @@
     {
       "email": "ana@example.com",
       "password": "123456",
-      "firstName": "Ana",
-      "lastName": "Millow",
+      "firstName": "Anna",
+      "lastName": "Kropyva",
       "phone": "757957265",
       "favorites": ["NO-000001", "NO-000003"],
       "orders": [1712425000001, 1712425000002]

@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="uk">
+
+<script>
+    if (!localStorage.getItem('currentUserEmail')) {
+        window.location.href = 'auth.html';
+    }
+</script>
+
 <head>
     <meta charset="UTF-8" />
     <title>RentWardrobe - Особистий Кабінет</title>
@@ -141,5 +148,13 @@
   }
 
   window.onload = loadUserData;
+</script>
+
+<button onclick="logout()">Вийти</button>
+<script>
+    function logout() {
+        localStorage.removeItem('currentUserEmail');
+        window.location.href = 'auth.html';
+    }
 </script>
 </html>
