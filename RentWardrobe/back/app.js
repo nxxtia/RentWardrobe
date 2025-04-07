@@ -37,7 +37,7 @@ app.post('/api/register', (req, res) => {
         return res.status(400).json({ message: 'Користувач вже існує' });
     }
 
-    db.users.push({ email, password, firstName, lastName });
+    db.users.push({ email, password, firstName, lastName, favorites: [] });
     writeDB(db);
 
     res.json({ message: 'Реєстрація успішна' });
@@ -61,8 +61,9 @@ app.post('/api/order', (req, res) => {
     const db = readDB();
     const { name, email, phone, delivery, address, payment, comment, cart } = req.body;
 
+    const orderId = Date.now();
     db.orders.push({
-        id: Date.now(),
+        id: orderId,
         name,
         email,
         phone,
@@ -73,8 +74,74 @@ app.post('/api/order', (req, res) => {
         cart
     });
 
+    const user = db.users.find(u => u.email === email);
+    if (user) {
+        user.orders.push(orderId);
+        writeDB(db);
+    }
+
     writeDB(db);
     res.json({ message: 'Замовлення прийнято' });
+});
+
+// Отримати інформацію про користувача
+app.get('/api/user/:email', (req, res) => {
+    const db = readDB();
+    const email = req.params.email;
+    const user = db.users.find(u => u.email === email);
+    if (!user) {
+        return res.status(404).json({ message: 'Користувача не знайдено' });
+    }
+    res.json(user);
+});
+
+// Отримати замовлення користувача
+app.get('/api/user/:email/orders', (req, res) => {
+    const db = readDB();
+    const email = req.params.email;
+    const user = db.users.find(u => u.email === email);
+    if (!user) {
+        return res.status(404).json({ message: 'Користувача не знайдено' });
+    }
+
+    const userOrders = db.orders.filter(order => user.orders.includes(order.id));
+    res.json(userOrders);
+});
+
+// Додати товар до обраного
+app.post('/api/user/:email/favorites', (req, res) => {
+    const db = readDB();
+    const email = req.params.email;
+    const { productCode } = req.body;
+
+    const user = db.users.find(u => u.email === email);
+    if (!user) {
+        return res.status(404).json({ message: 'Користувача не знайдено' });
+    }
+
+    if (!user.favorites.includes(productCode)) {
+        user.favorites.push(productCode);
+        writeDB(db);
+    }
+
+    res.json({ message: 'Товар додано до обраного', favorites: user.favorites });
+});
+
+// Видалити товар з обраного
+app.delete('/api/user/:email/favorites/:code', (req, res) => {
+    const db = readDB();
+    const email = req.params.email;
+    const code = req.params.code;
+
+    const user = db.users.find(u => u.email === email);
+    if (!user) {
+        return res.status(404).json({ message: 'Користувача не знайдено' });
+    }
+
+    user.favorites = user.favorites.filter(c => c !== code);
+    writeDB(db);
+
+    res.json({ message: 'Товар видалено з обраного', favorites: user.favorites });
 });
 
 app.listen(PORT, () => {

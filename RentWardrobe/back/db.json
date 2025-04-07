@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "email": "ana@example.com",
+      "password": "123456",
+      "firstName": "Ana",
+      "lastName": "Millow",
+      "phone": "757957265",
+      "favorites": ["NO-000001", "NO-000003"],
+      "orders": [1712425000001, 1712425000002]
+    }
+  ],
+  "orders": [
+    {
+      "id": 1712425000001,
+      "name": "Ana",
+      "email": "ana@example.com",
+      "phone": "757957265",
+      "delivery": "novaPoshta",
+      "address": "Київ, Відділення №5",
+      "payment": "card",
+      "comment": "",
+      "cart": [
+        {
+          "code": "NO-000001",
+          "title": "Чорна вечірня сукня",
+          "quantity": 1,
+          "price": "2 990 грн"
+        }
+      ]
+    }
+  ]
+}
