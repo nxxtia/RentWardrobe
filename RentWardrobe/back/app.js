@@ -1,89 +1,85 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const db = require("./db");
-
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+const bodyParser = require('body-parser');
 const app = express();
-app.use(cors());
+const PORT = 3000;
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 5000;
+// Дозволити CORS (для з'єднання з фронтендом)
+app.use(require('cors')());
 
-// 🚀 1. Отримання всіх товарів
-app.get("/api/products", async (req, res) => {
-    try {
-        const [rows] = await db.query("SELECT * FROM Products");
-        res.json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Помилка сервера" });
+// Статичні файли (фронт з public/)
+app.use(express.static(path.join(__dirname, '../front')));
+app.use('/pictures', express.static(path.join(__dirname, '../front/pictures')));
+app.use('/styles', express.static(path.join(__dirname, '../front/styles')));
+app.use('/scripts', express.static(path.join(__dirname, '../front/scripts')));
+
+// Прочитати базу (файл)
+const readDB = () => {
+    const data = fs.readFileSync(path.join(__dirname, '../db.json'));
+    return JSON.parse(data);
+};
+
+// Зберегти базу
+const writeDB = (data) => {
+    fs.writeFileSync(path.join(__dirname, '../db.json'), JSON.stringify(data, null, 2));
+};
+
+// Реєстрація
+app.post('/api/register', (req, res) => {
+    const db = readDB();
+    const { email, password, firstName, lastName } = req.body;
+
+    if (db.users.find(u => u.email === email)) {
+        return res.status(400).json({ message: 'Користувач вже існує' });
     }
+
+    db.users.push({ email, password, firstName, lastName });
+    writeDB(db);
+
+    res.json({ message: 'Реєстрація успішна' });
 });
 
-// 🚀 2. Додавання нового товару (тільки для адміна або партнера)
-app.post("/api/products", async (req, res) => {
-    const { name, category, subcategory, description, price, sizes, colors, materials, photos, partner_id } = req.body;
-    try {
-        const query = "INSERT INTO Products (name, category, subcategory, description, price, sizes, colors, materials, photos, partner_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        await db.query(query, [name, category, subcategory, description, price, sizes, colors, materials, JSON.stringify(photos), partner_id]);
-        res.status(201).json({ message: "Товар додано успішно!" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Помилка при додаванні товару" });
+// Авторизація
+app.post('/api/login', (req, res) => {
+    const db = readDB();
+    const { email, password } = req.body;
+
+    const user = db.users.find(u => u.email === email && u.password === password);
+    if (!user) {
+        return res.status(401).json({ message: 'Невірний логін або пароль' });
     }
+
+    res.json({ message: 'Успішний вхід', user });
 });
 
-// 🚀 3. Отримання замовлень конкретного користувача
-app.get("/api/orders/:user_id", async (req, res) => {
-    const { user_id } = req.params;
-    try {
-        const [rows] = await db.query("SELECT * FROM Orders WHERE user_id = ?", [user_id]);
-        res.json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Помилка отримання замовлень" });
-    }
+// Збереження замовлення
+app.post('/api/order', (req, res) => {
+    const db = readDB();
+    const { name, email, phone, delivery, address, payment, comment, cart } = req.body;
+
+    db.orders.push({
+        id: Date.now(),
+        name,
+        email,
+        phone,
+        delivery,
+        address,
+        payment,
+        comment,
+        cart
+    });
+
+    writeDB(db);
+    res.json({ message: 'Замовлення прийнято' });
 });
 
-// 🚀 4. Додавання замовлення
-app.post("/api/orders", async (req, res) => {
-    const { user_id, start_date, end_date, total_price, status, product_id } = req.body;
-    try {
-        const query = "INSERT INTO Orders (user_id, order_date, start_date, end_date, total_price, status, product_id) VALUES (?, NOW(), ?, ?, ?, ?, ?)";
-        await db.query(query, [user_id, start_date, end_date, total_price, status, product_id]);
-        res.status(201).json({ message: "Замовлення створено успішно!" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Помилка при створенні замовлення" });
-    }
-});
-
-// 🚀 5. Додавання відгуку
-app.post("/api/reviews", async (req, res) => {
-    const { user_id, product_id, rating, comment } = req.body;
-    try {
-        const query = "INSERT INTO Reviews (user_id, product_id, rating, comment, created_at) VALUES (?, ?, ?, ?, NOW())";
-        await db.query(query, [user_id, product_id, rating, comment]);
-        res.status(201).json({ message: "Відгук успішно додано!" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Помилка при додаванні відгуку" });
-    }
-});
-
-// 🚀 6. Отримання відгуків для конкретного товару
-app.get("/api/reviews/:product_id", async (req, res) => {
-    const { product_id } = req.params;
-    try {
-        const [rows] = await db.query("SELECT * FROM Reviews WHERE product_id = ?", [product_id]);
-        res.json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Помилка отримання відгуків" });
-    }
-});
-
-// Запуск сервера
 app.listen(PORT, () => {
-    console.log(`🚀 Сервер працює на порту ${PORT}`);
+    console.log(`Сервер запущено на http://localhost:${PORT}`);
+    import('open').then(open => {
+        open.default('http://localhost:3000/pages/index.html');
+    });
 });
