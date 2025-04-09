@@ -180,3 +180,31 @@ cython_debug/
 *.cnf
 *.ini
 
+# Node
+node_modules/
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Mac
+.DS_Store
+
+# Logs
+logs
+*.log
+*.csv
+
+# OS
+Thumbs.db
+
+# Editor folders
+.idea/
+.vscode/
+
+# Build/Dist
+dist/
+build/
+
+
