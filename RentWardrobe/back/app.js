@@ -145,7 +145,7 @@ app.delete('/api/user/:email/favorites/:code', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Сервер запущено на http://localhost:${PORT}`);
+    console.log(`Сервер запущено на http://localhost:${PORT}/pages/index.html`);
     import('open').then(open => {
         open.default('http://localhost:3000/pages/index.html');
     });

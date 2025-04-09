@@ -296,12 +296,7 @@
 
     function handleProfileClick(event) {
         event.preventDefault();
-
-        if (checkAuthentication()) {
-            window.location.href = 'userProfile.html';
-        } else {
-            window.location.href = 'auth.html';
-        }
+        window.location.href = 'userProfile.html';
     }
 
     document.getElementById('profileLink').addEventListener('click', handleProfileClick);
