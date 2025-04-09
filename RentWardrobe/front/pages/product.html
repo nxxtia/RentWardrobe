@@ -33,15 +33,14 @@
         <ul>
             <li><a href="#">Жіночий</a></li>
             <li><a href="#">Чоловічий</a></li>
-            <li><a href="#">Пошук</a></li>
-            <li><a href="#">Особистий кабінет</a></li>
+            <li><a href="#" id="profileLink">Особистий кабінет</a></li>
         </ul>
     </nav>
     <div class="header-icons">
         <a href="cart.html">
             <i class="fa-solid fa-cart-shopping"></i>
         </a>
-        <a href="userProfile.html">
+        <a href="#" id="profileLinkIcon">
             <i class="fa-solid fa-user"></i>
         </a>
     </div>
@@ -204,6 +203,14 @@
             alert('Дані про товар не знайдено!');
         }
     });
+
+    function handleProfileClick(event) {
+        event.preventDefault();
+        window.location.href = 'userProfile.html';
+    }
+
+    document.getElementById('profileLink').addEventListener('click', handleProfileClick);
+    document.getElementById('profileLinkIcon')?.addEventListener('click', handleProfileClick);
 </script>
 </body>
 </html>

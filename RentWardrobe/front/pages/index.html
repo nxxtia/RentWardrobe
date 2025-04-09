@@ -52,7 +52,10 @@
                     </ul>
                 </div>
             </li>
-            <li><a href="#">Пошук</a></li>
+            <li class="search-container">
+                <a href="#" id="toggleSearch">Пошук <i class="fa fa-search"></i></a>
+                <input type="text" id="searchInput" placeholder="Введіть назву товару..." style="display: none;" />
+            </li>
             <li><a href="#" id="profileLink">Особистий кабінет</a></li>
         </ul>
     </nav>
@@ -235,6 +238,38 @@
             });
         });
     }
+
+    document.getElementById('toggleSearch').addEventListener('click', function (e) {
+        e.preventDefault();
+        const input = document.getElementById('searchInput');
+        input.style.display = input.style.display === 'none' ? 'inline-block' : 'none';
+        input.focus();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
+        const filtered = allProducts.filter(p => p.title.toLowerCase().includes(query));
+
+        const grid = document.querySelector('.product-grid');
+        grid.innerHTML = '';
+
+        filtered.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.setAttribute('data-product', JSON.stringify(product));
+            card.innerHTML = `
+                <i class="fa-regular fa-heart heart-icon"></i>
+                <img src="${product.img}" alt="${product.title}" />
+                <h3>${product.title}</h3>
+                <button class="details-btn">Детальніше</button>
+            `;
+            grid.appendChild(card);
+        });
+
+        attachDetailsHandlers();
+        initHeartIcons();
+    });
 
     window.onload = loadProducts;
 </script>
