@@ -1,34 +1,24 @@
-<!--checkout.html-->
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8" />
     <title>RentWardrobe - Оформлення Замовлення</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
-            rel="stylesheet"
-    />
-    <!-- Font Awesome 6 (іконки) -->
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    />
-    <!-- Підключення файлу зі стилями -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
     <link rel="stylesheet" href="../styles/checkout.css" />
+    <script>
+        if (!localStorage.getItem('currentUserEmail')) {
+            window.location.href = 'auth.html';
+        }
+    </script>
 </head>
 <body>
-
-<!-- Верхній рядок -->
 <div class="top-message">
-    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
-    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
-    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
 </div>
-
-<!-- Шапка -->
 <header>
     <a href="index.html" style="color: inherit; text-decoration: none;">
         <div class="logo">RentWardrobe</div>
@@ -42,114 +32,118 @@
         </ul>
     </nav>
     <div class="header-icons">
-        <a href="cart.html">
-            <i class="fa-solid fa-cart-shopping"></i>
-        </a>
-        <a href="userProfile.html">
-            <i class="fa-solid fa-user"></i>
-        </a>
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a href="userProfile.html"><i class="fa-solid fa-user"></i></a>
     </div>
 </header>
-
-<!-- Основний контейнер -->
 <div class="checkout-container">
-    <!-- Хлібні крихти -->
     <div class="breadcrumbs">
         <a href="#">RentWardrobe</a> / <span>Оформлення Замовлення</span>
     </div>
-
     <div class="checkout-content">
-        <!-- Ліва колонка: коротка інфо про товар -->
-        <aside class="order-summary">
-            <div class="product-box">
-                <img
-                        src="../pictures/7238454e1994fe61aa0f9f400f187c14.jpg"
-                        alt="Сукня"
-                />
-                <div class="product-info">
-                    <p class="product-name">Синя вечірня сукня</p>
-                    <p class="product-size">Розмір: XS</p>
-                    <p class="product-price">14990 грн</p>
-                </div>
-            </div>
-            <div class="order-total">
-                <span>Всього до оплати:</span>
-                <strong>14990 грн</strong>
-            </div>
-        </aside>
-
-        <!-- Права колонка: форма оформлення -->
+        <aside class="order-summary" id="orderSummary"></aside>
         <section class="order-form">
             <h2 class="form-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
-
             <div class="form-group">
                 <label for="customerName">Ім’я отримувача</label>
-                <input type="text" id="customerName" placeholder="Введіть ваше ім'я" />
+                <input type="text" id="customerName" placeholder="Введіть ваше ім'я" required />
             </div>
-
             <div class="form-group">
                 <label for="customerEmail">Email</label>
-                <input
-                        type="email"
-                        id="customerEmail"
-                        placeholder="Введіть ваш email"
-                />
+                <input type="email" id="customerEmail" placeholder="Введіть ваш email" required />
             </div>
-
             <div class="form-group">
                 <label for="customerPhone">Телефон</label>
-                <input
-                        type="text"
-                        id="customerPhone"
-                        placeholder="Введіть ваш номер телефону"
-                />
+                <input type="text" id="customerPhone" placeholder="Введіть ваш номер телефону" required />
             </div>
-
             <h3>Доставка</h3>
             <div class="form-group">
-                <label>
-                    <input type="radio" name="delivery" value="novaPoshta" checked />
-                    Нова Пошта (відділення)
-                </label>
-                <label>
-                    <input type="radio" name="delivery" value="courier" />
-                    Адресна доставка кур'єром
-                </label>
+                <label><input type="radio" name="delivery" value="novaPoshta" checked /> Нова Пошта (відділення)</label>
+                <label><input type="radio" name="delivery" value="courier" /> Адресна доставка кур'єром</label>
             </div>
             <div class="form-group">
                 <label for="deliveryAddress">Адреса / Номер відділення</label>
-                <input
-                        type="text"
-                        id="deliveryAddress"
-                        placeholder="Вкажіть відділення чи адресу"
-                />
+                <input type="text" id="deliveryAddress" placeholder="Вкажіть відділення чи адресу" required />
             </div>
-
             <h3>Оплата</h3>
             <div class="form-group">
-                <label>
-                    <input type="radio" name="payment" value="card" checked />
-                    Оплата на картку
-                </label>
-                <label>
-                    <input type="radio" name="payment" value="cash" />
-                    Оплата при отриманні
-                </label>
+                <label><input type="radio" name="payment" value="card" checked /> Оплата на картку</label>
+                <label><input type="radio" name="payment" value="cash" /> Оплата при отриманні</label>
             </div>
-
             <div class="form-group">
                 <label for="comment">Коментар до замовлення</label>
-                <textarea
-                        id="comment"
-                        rows="3"
-                        placeholder="Якщо у вас є побажання або додаткова інформація, залиште їх тут."
-                ></textarea>
+                <textarea id="comment" rows="3" placeholder="Якщо у вас є побажання або додаткова інформація, залиште їх тут."></textarea>
             </div>
-
-            <button class="submit-btn">Оформити</button>
+            <button class="submit-btn" id="placeOrderBtn">Оформити</button>
         </section>
     </div>
 </div>
+<script>
+    function renderOrderSummary() {
+        const orderSummaryEl = document.getElementById('orderSummary');
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let totalRentSum = 0;
+        let html = "";
+        cart.forEach(item => {
+            const rentPricePerDay = parseFloat(item.rentPrice.replace(/\D/g, "")) || 0;
+            const days = item.quantity;
+            const totalRentForItem = rentPricePerDay * days;
+            totalRentSum += totalRentForItem;
+            html += `<div class="product-box">
+          <img src="${item.img}" alt="${item.title}" />
+          <div class="product-info">
+            <p class="product-name">${item.title}</p>
+            <p class="product-size">Розмір: ${item.size}</p>
+            <p class="product-quantity">Дні: ${days}</p>
+            <p class="product-rent">Оренда: ${totalRentForItem} грн</p>
+          </div>
+        </div>`;
+        });
+        html += `<div class="order-total">
+        <span>Всього до оплати:</span>
+        <strong>${totalRentSum} грн</strong>
+      </div>`;
+        orderSummaryEl.innerHTML = html;
+    }
+    renderOrderSummary();
 
+    document.getElementById("placeOrderBtn").addEventListener("click", async function(event) {
+        event.preventDefault();
+        const name = document.getElementById("customerName").value.trim();
+        const email = document.getElementById("customerEmail").value.trim();
+        const phone = document.getElementById("customerPhone").value.trim();
+        const address = document.getElementById("deliveryAddress").value.trim();
+        if (!name || !email || !phone || !address) {
+            alert("Будь ласка, заповніть усі обов’язкові поля.");
+            return;
+        }
+        const order = {
+            id: Date.now(),
+            name: name,
+            email: email,
+            phone: phone,
+            delivery: document.querySelector('input[name="delivery"]:checked').value,
+            address: address,
+            payment: document.querySelector('input[name="payment"]:checked').value,
+            comment: document.getElementById("comment").value.trim(),
+            cart: JSON.parse(localStorage.getItem("cart")) || []
+        };
+        // Надсилаємо замовлення на сервер через сесію
+        try {
+            const res = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(order)
+            });
+            const data = await res.json();
+            console.log("Server response:", data);
+        } catch (err) {
+            console.error("Помилка надсилання замовлення:", err);
+        }
+        // Після успішного збереження, перенаправляємо користувача
+        alert("Ваше замовлення успішно оформлене");
+        window.location.href = "order-history.html";
+    });
+</script>
 </body>
 </html>

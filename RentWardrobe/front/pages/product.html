@@ -3,28 +3,25 @@
 <head>
     <meta charset="UTF-8" />
     <title>RentWardrobe - Деталі товару</title>
-
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
             rel="stylesheet"
     />
-
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
-
     <link rel="stylesheet" href="../styles/product.css" />
 </head>
 <body>
 
-
+<!-- Верхній рядок -->
 <div class="top-message">
     <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
 </div>
 
-
+<!-- Шапка -->
 <header>
     <a href="index.html" style="color: inherit; text-decoration: none;">
         <div class="logo">RentWardrobe</div>
@@ -46,24 +43,16 @@
     </div>
 </header>
 
+<!-- Контейнер товару -->
 <div class="product-container">
     <div class="breadcrumbs">
         <a href="#">RentWardrobe</a> /
-        <a href="#">Жінки</a> /
-        <a href="#">Сукні</a> /
         <span id="breadcrumbTitle">Назва товару</span>
     </div>
 
-
     <div class="product-main">
-
         <div class="main-image">
-
-            <img
-                    src="../pictures/placeholder.jpg"
-                    alt="Main"
-                    id="mainPhoto"
-            />
+            <img src="../pictures/placeholder.jpg" alt="Main" id="mainPhoto" />
         </div>
 
         <!-- Опис товару справа -->
@@ -72,11 +61,11 @@
             <p class="article" id="productCode">Код: NO-000000</p>
 
             <div class="price-block">
-                <span class="price" id="productPrice">1 4990 грн</span>
+                <span class="price" id="productPrice">14 990 грн</span>
                 <span class="in-stock">В наявності</span>
             </div>
 
-            <!-- Зірочки -->
+            <!-- Зірочки (рейтинг) -->
             <span class="fa fa-star checked"></span>
             <span class="fa fa-star checked"></span>
             <span class="fa fa-star checked"></span>
@@ -131,16 +120,16 @@
                 <p>Доставка Новою Поштою по всій Україні.</p>
             </div>
             <div class="tab-content" id="tab-review">
-                <p>Відгуки покупців відображатимуться тут.</p>
+                <p>чудове плаття 10/10.</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    // Логіка вкладок
     const tabLinks = document.querySelectorAll('.tab-link');
     const tabContents = document.querySelectorAll('.tab-content');
-
     tabLinks.forEach((btn) => {
         btn.addEventListener('click', () => {
             tabLinks.forEach((item) => item.classList.remove('active'));
@@ -153,16 +142,11 @@
     });
 </script>
 
-
 <script>
-
+    // Отримання даних товару з sessionStorage
     const productJSON = sessionStorage.getItem('selectedProduct');
-
     if (productJSON) {
-
         const product = JSON.parse(productJSON);
-
-
         document.getElementById('breadcrumbTitle').textContent = product.title;
         document.getElementById('productTitle').textContent = product.title;
         document.getElementById('mainPhoto').src = product.img;
@@ -170,47 +154,69 @@
         document.getElementById('productCode').textContent = 'Код: ' + (product.code || 'NO-000000');
         document.getElementById('rentPrice').textContent = product.rentPrice || '1000 грн/добу';
         document.getElementById('descriptionText').textContent = product.description;
+
+        const sizesBlock = document.querySelector('.sizes');
+        sizesBlock.innerHTML = '';
+
+        if (product.sizes && Array.isArray(product.sizes)) {
+            product.sizes.forEach(size => {
+                const button = document.createElement('button');
+                button.className = 'size-btn';
+                button.textContent = size;
+                sizesBlock.appendChild(button);
+            });
+        }
+        product.rating = product.rating || 5;
+        sessionStorage.setItem('selectedProduct', JSON.stringify(product));
     }
 </script>
+
 <script>
-    // Додаємо обробник для кнопки "В кошик"
+    // Обробка вибору розміру
+    const sizeButtons = document.querySelectorAll('.size-btn');
+    sizeButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            sizeButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Додавання товару до кошика
     document.querySelector('.add-to-cart').addEventListener('click', function() {
-        // Зчитуємо дані товару із sessionStorage (вони були збережені при переході)
         const productJSON = sessionStorage.getItem('selectedProduct');
         if (productJSON) {
             const product = JSON.parse(productJSON);
-            // Додаємо поле quantity (кількість) – за замовчуванням 1
             product.quantity = 1;
+            // Отримуємо вибраний розмір
+            const selectedSizeBtn = document.querySelector('.size-btn.active');
+            product.size = selectedSizeBtn ? selectedSizeBtn.textContent : (product.size || 'N/A');
+            // Забезпечуємо наявність рейтингу та оренди
+            product.rating = product.rating || 5;
+            product.rentPrice = product.rentPrice || '1000 грн/добу';
 
-            // Отримуємо існуючий кошик із localStorage або створюємо новий порожній масив
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            // (Опціонально) Перевірка, чи існує товар уже в кошику і збільшення кількості
-            const existingProductIndex = cart.findIndex(item => item.code === product.code);
+            // Перевірка наявності товару з однаковим кодом і розміром
+            const existingProductIndex = cart.findIndex(item => item.code === product.code && item.size === product.size);
             if (existingProductIndex !== -1) {
-                // Якщо товар вже є, збільшуємо кількість
                 cart[existingProductIndex].quantity += 1;
             } else {
-                // Інакше додаємо новий товар до кошика
                 cart.push(product);
             }
-
-            // Зберігаємо оновлений кошик у localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
-
             alert('Товар додано до кошика!');
         } else {
             alert('Дані про товар не знайдено!');
         }
     });
 
+    // Обробка переходу до профілю
     function handleProfileClick(event) {
         event.preventDefault();
         window.location.href = 'userProfile.html';
     }
-
     document.getElementById('profileLink').addEventListener('click', handleProfileClick);
-    document.getElementById('profileLinkIcon')?.addEventListener('click', handleProfileClick);
+    document.getElementById('profileLinkIcon').addEventListener('click', handleProfileClick);
 </script>
+
 </body>
 </html>
