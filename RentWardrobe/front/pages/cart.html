@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8" />
     <title>RentWardrobe - Кошик</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
-    <!-- Font Awesome 6 (іконки) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-    <!-- Підключення файлу зі стилями -->
     <link rel="stylesheet" href="../styles/cart.css" />
+    <script>
+        if (!localStorage.getItem('currentUserEmail')) {
+            window.location.href = 'auth.html';
+        }
+    </script>
 </head>
 <body>
-
-<!-- Верхній рядок -->
 <div class="top-message">
     <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
     <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
     <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
 </div>
-
-<!-- Шапка -->
 <header>
     <a href="index.html" style="color: inherit; text-decoration: none;">
         <div class="logo">RentWardrobe</div>
@@ -34,25 +32,21 @@
         </ul>
     </nav>
     <div class="header-icons">
-        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
-        <a href="userProfile.html"><i class="fa-solid fa-user"></i></a>
+        <a href="cart.html">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <a href="userProfile.html">
+            <i class="fa-solid fa-user"></i>
+        </a>
     </div>
 </header>
-
-<!-- Основний контейнер -->
 <div class="cart-container">
-    <!-- Хлібні крихти -->
     <div class="breadcrumbs">
         <a href="#">RentWardrobe</a> / <span>Кошик</span>
     </div>
 
-    <!-- Заголовок -->
     <h2 class="cart-title">МІЙ КОШИК</h2>
-
-    <!-- Контейнер для динамічного додавання товарів -->
     <div id="cartItemsContainer"></div>
-
-    <!-- Нижній блок: Кнопка оформлення замовлення та загальна сума -->
     <div class="cart-bottom">
         <button class="checkout-btn" onclick="window.location.href='checkout.html'">Оформити замовлення</button>
         <div class="cart-total">
@@ -61,52 +55,121 @@
         </div>
     </div>
 </div>
-
 <script>
     function renderCartItems() {
         const cartItemsContainer = document.getElementById('cartItemsContainer');
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cartItemsContainer.innerHTML = ''; // очищення контейнера перед відображенням
-        let totalPrice = 0;
-
-        cart.forEach(item => {
-            // Припустимо, що "price" має формат "14990 грн", тому вилучаємо число:
-            const priceNumber = parseFloat(item.price.replace(/\D/g, ''));
-            totalPrice += priceNumber * item.quantity;
-
-            // Створюємо HTML-блок для кожного товару
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'cart-item';
+        cartItemsContainer.innerHTML = "";
+        let totalRentSum = 0;
+        cart.forEach((item, index) => {
+            const buyPrice = item.price || "";
+            const rentPricePerDay = parseFloat(item.rentPrice.replace(/\D/g, "")) || 0;
+            const days = item.quantity;
+            const totalRentForItem = rentPricePerDay * days;
+            totalRentSum += totalRentForItem;
+            let sizeSelectorHTML = "";
+            if (item.sizes && Array.isArray(item.sizes)) {
+                sizeSelectorHTML = `<select class="size-dropdown" data-index="${index}">
+              ${item.sizes.map(sizeValue => {
+                    const selected = (sizeValue === item.size) ? "selected" : "";
+                    return `<option value="${sizeValue}" ${selected}>${sizeValue}</option>`;
+                }).join("")}
+            </select>`;
+            } else {
+                sizeSelectorHTML = `<span>${item.size || "N/A"}</span>`;
+            }
+            const itemDiv = document.createElement("div");
+            itemDiv.className = "cart-item";
             itemDiv.innerHTML = `
-        <div class="item-image">
-          <img src="${item.img}" alt="${item.title}" />
-        </div>
-        <div class="item-right">
-          <div class="item-upper">
-            <div class="item-quantity">
-              <span>Кількість:</span>
-              <input type="number" value="${item.quantity}" min="1" data-code="${item.code}" class="quantity-input" />
+          <div class="item-image">
+            <img src="${item.img}" alt="${item.title}" />
+          </div>
+          <div class="item-right">
+            <div class="item-upper">
+              <div class="item-quantity">
+                <span>Кількість днів оренди:</span>
+                <input type="number" value="${days}" min="1" data-index="${index}" class="quantity-input" />
+              </div>
+              <div class="item-total-price">
+                <span>Вартість оренди:</span>
+                <strong>${totalRentForItem} грн</strong>
+              </div>
+              <button class="delete-item-btn" data-index="${index}" title="Видалити">
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </div>
-            <div class="item-total-price">
-              <span>Ціна:</span>
-              <strong>${priceNumber * item.quantity} грн</strong>
+            <div class="item-details">
+              <p class="item-name">${item.title}</p>
+              ${buyPrice ? `<p class="item-full-price">Повна ціна: ${buyPrice}</p>` : ""}
+              <div class="item-size">
+                <span>Розмір:</span> ${sizeSelectorHTML}
+              </div>
+              <p class="item-rent-price">Оренда за добу: ${item.rentPrice}</p>
+              <p class="item-rating">Рейтинг: ${item.rating || "N/A"}</p>
             </div>
           </div>
-          <div class="item-details">
-            <p class="item-name">${item.title}</p>
-            <!-- За потребою можна додати розмір, колір і т.д. -->
-          </div>
-        </div>
-      `;
+        `;
             cartItemsContainer.appendChild(itemDiv);
         });
-
-        document.getElementById('totalPrice').textContent = totalPrice + ' грн';
+        document.getElementById("totalPrice").textContent = totalRentSum + " грн";
+        attachDeleteEvent();
+        attachQuantityChangeEvent();
+        attachDropdownChangeEvent();
+    }
+    function attachDeleteEvent() {
+        const deleteButtons = document.querySelectorAll(".delete-item-btn");
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const index = this.getAttribute("data-index");
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCartItems();
+            });
+        });
+    }
+    function attachQuantityChangeEvent() {
+        const quantityInputs = document.querySelectorAll(".quantity-input");
+        quantityInputs.forEach(input => {
+            input.addEventListener("change", function () {
+                const newQuantity = parseInt(this.value);
+                const index = this.getAttribute("data-index");
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                if (newQuantity < 1) {
+                    this.value = cart[index].quantity;
+                    return;
+                }
+                cart[index].quantity = newQuantity;
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCartItems();
+            });
+        });
+    }
+    function attachDropdownChangeEvent() {
+        const dropdowns = document.querySelectorAll(".size-dropdown");
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener("change", function () {
+                const index = this.getAttribute("data-index");
+                const selectedSize = this.value;
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart[index].size = selectedSize;
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCartItems();
+            });
+        });
     }
 
-    // Викликаємо функцію відразу після завантаження сторінки
     renderCartItems();
 </script>
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
