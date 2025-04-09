@@ -13,7 +13,7 @@
     <title>RentWardrobe - Обрані товари</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles/userProfile.css" />
+    <link rel="stylesheet" href="/styles/index.css" />
 </head>
 <body>
 <header>
@@ -35,10 +35,15 @@
 </header>
 
 
-<div class="cabinet-container">
-    <h2 class="cabinet-title">ОБРАНІ ТОВАРИ</h2>
-    <div class="favorites-grid" id="favoritesGrid"></div>
-</div>
+<section class="content-area">
+    <div class="breadcrumbs">
+        <a href="#">RentWardrobe</a> / <a href="#">Обрані товари</a>
+    </div>
+    <div class="content-header">
+        <h2>Обрані товари</h2>
+    </div>
+    <div class="product-grid" id="favoritesGrid"></div>
+</section>
 
 <script>
     const currentUserEmail = localStorage.getItem('currentUserEmail');
@@ -47,19 +52,77 @@
         if (!currentUserEmail) return;
 
         try {
-            const res = await fetch(`/api/user/${currentUserEmail}`);
-            const user = await res.json();
+            const userRes = await fetch(`/api/user/${currentUserEmail}`);
+            const user = await userRes.json();
 
             const grid = document.getElementById('favoritesGrid');
 
-            user.favorites.forEach(code => {
+            const productsRes = await fetch('/api/products');
+            const allProducts = await productsRes.json();
+
+            const favoriteProducts = allProducts.filter(p => user.favorites.includes(p.code));
+
+            if (!favoriteProducts.length) {
+                grid.innerHTML = '<p>У вас поки що немає обраних товарів.</p>';
+                return;
+            }
+
+            favoriteProducts.forEach(product => {
                 const card = document.createElement('div');
-                card.className = 'favorite-card';
-                card.textContent = `Товар з кодом: ${code}`; // можеш замінити на пошук по БД
+                card.className = 'product-card';
+                card.setAttribute('data-product', JSON.stringify(product));
+                card.innerHTML = `
+                    <i class="fa-solid fa-heart heart-icon"></i>
+                    <img src="${product.img}" alt="${product.title}" />
+                    <h3>${product.title}</h3>
+                    <button class="details-btn">Детальніше</button>
+                    <button class="remove-btn" onclick="removeFromFavorites('${product.code}')">Видалити</button>
+                `;
                 grid.appendChild(card);
+            });
+
+            const detailButtons = document.querySelectorAll('.details-btn');
+            detailButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const productCard = e.target.closest('.product-card');
+                    const productData = productCard.getAttribute('data-product');
+                    sessionStorage.setItem('selectedProduct', productData);
+                    window.location.href = 'product.html';
+                });
             });
         } catch (err) {
             console.error('Помилка при завантаженні обраних товарів', err);
+        }
+    }
+
+    async function viewProduct(code) {
+        try {
+            const res = await fetch('/api/products');
+            const allProducts = await res.json();
+            const selected = allProducts.find(p => p.code === code);
+            if (selected) {
+                sessionStorage.setItem('selectedProduct', JSON.stringify(selected));
+                window.location.href = 'product.html';
+            }
+        } catch (err) {
+            console.error('Помилка при переході до товару', err);
+        }
+    }
+
+    async function removeFromFavorites(code) {
+        const email = localStorage.getItem('currentUserEmail');
+        if (!email) return;
+
+        try {
+            const res = await fetch(`/api/user/${email}/favorites/${code}`, {
+                method: 'DELETE'
+            });
+
+            if (res.ok) {
+                loadFavorites(); // оновити список
+            }
+        } catch (err) {
+            console.error('Помилка при видаленні з обраного', err);
         }
     }
 

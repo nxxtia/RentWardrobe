@@ -11,6 +11,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Дозволити CORS (для з'єднання з фронтендом)
 app.use(require('cors')());
 
+// Отримати всі товари
+app.get('/api/products', (req, res) => {
+    const db = readDB();
+    res.json(db.products || []);
+});
+
 // Статичні файли (фронт з public/)
 app.use(express.static(path.join(__dirname, '../front')));
 app.use('/pictures', express.static(path.join(__dirname, '../front/pictures')));

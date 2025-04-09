@@ -6,8 +6,11 @@
       "firstName": "Anna",
       "lastName": "Kropyva",
       "phone": "757957265",
-      "favorites": ["NO-000001", "NO-000003"],
-      "orders": [1712425000001, 1712425000002]
+      "favorites": [],
+      "orders": [
+        1712425000001,
+        1712425000002
+      ]
     }
   ],
   "orders": [
@@ -28,6 +31,72 @@
           "price": "2 990 грн"
         }
       ]
+    }
+  ],
+  "products": [
+    {
+      "title": "Чорна вечірня сукня",
+      "img": "/pictures/3c2a6fb6d579606632ebe669a84a5936.jpg",
+      "price": "24 990 грн",
+      "description": "Опис для чорної вечірньої сукні...",
+      "code": "NO-000001",
+      "rentPrice": "2000 грн/добу"
+    },
+    {
+      "title": "Синя вечірня сукня",
+      "img": "/pictures/7238454e1994fe61aa0f9f400f187c14.jpg",
+      "price": "14 990 грн",
+      "description": "Опис для синьої вечірньої сукні...",
+      "code": "NO-000002",
+      "rentPrice": "1400 грн/добу"
+    },
+    {
+      "title": "Біла вечірня сукня",
+      "img": "/pictures/3ccf490bd5bd4bb47ada0ebd723a83e3.jpg",
+      "price": "35 000 грн",
+      "description": "Опис для білої вечірньої сукні...",
+      "code": "NO-000003",
+      "rentPrice": "3000 грн/добу"
+    },
+    {
+      "title": "Сіра вечірня сукня",
+      "img": "/pictures/8b6d7a80004d9c1fc0f9be66475bcdca.jpg",
+      "price": "14 900 грн",
+      "description": "Опис для сірої вечірньої сукні...",
+      "code": "NO-000004",
+      "rentPrice": "1490 грн/добу"
+    },
+    {
+      "title": "Чорно-рожева вечірня сукня",
+      "img": "/pictures/82e11e7b4f02239852c326cf08544a28.jpg",
+      "price": "14 990 грн",
+      "description": "Опис для чорно-рожевої вечірньої сукні...",
+      "code": "NO-000005",
+      "rentPrice": "1000 грн/добу"
+    },
+    {
+      "title": "Багряна вечірня сукня",
+      "img": "/pictures/9852a3b28b2c4e6aa23044885efc3cb0.jpg",
+      "price": "16 770 грн",
+      "description": "Опис для багряної вечірньої сукні...",
+      "code": "NO-000006",
+      "rentPrice": "1600 грн/добу"
+    },
+    {
+      "title": "Чорна вечірня сукня",
+      "img": "/pictures/d471317676b19f38a6c33aca6cd93bd9.jpg",
+      "price": "14 990 грн",
+      "description": "Опис для чорної вечірньої сукні...",
+      "code": "NO-000007",
+      "rentPrice": "1000 грн/добу"
+    },
+    {
+      "title": "Синя вечірня сукня",
+      "img": "/pictures/fdd6c1eaf1bb832b5106230b7d492883.jpg",
+      "price": "15 000 грн",
+      "description": "Опис для синьої вечірньої сукні...",
+      "code": "NO-000008",
+      "rentPrice": "1000 грн/добу"
     }
   ]
 }
