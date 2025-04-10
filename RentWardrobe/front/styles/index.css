@@ -107,11 +107,13 @@ header {
 
 /* Правий блок іконок */
 .right-actions {
+    color: #333;
     display: flex;
     align-items: center;
     gap: 20px;
 }
 .right-actions i {
+    color: #333;
     cursor: pointer;
     font-size: 1.1rem;
 }
@@ -189,12 +191,13 @@ header {
 .content-header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* «Товари» зліва, сортування справа */
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 .content-header h2 {
     font-size: 1.8rem;
     font-weight: 600;
+    margin-right: 500px;
 }
 .sort-dropdown label {
     margin-right: 5px;
@@ -275,12 +278,7 @@ header {
         padding-bottom: 20px;
         margin-bottom: 20px;
     }
-    /* Заголовок + сортування в колонку */
-    .content-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
+
     .product-card img {
         height: 200px;
     }

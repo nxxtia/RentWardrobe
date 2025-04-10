@@ -4,23 +4,35 @@
     <meta charset="UTF-8" />
     <title>RentWardrobe - Деталі товару</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
-            rel="stylesheet"
-    />
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
     <link rel="stylesheet" href="../styles/product.css" />
+
+    <!-- Додатковий стиль для активних кнопок розміру -->
+    <style>
+        .size-btn {
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            padding: 6px 12px;
+            margin: 0 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .size-btn:hover {
+            background-color: #f0f0f0;
+        }
+        .size-btn.active {
+            background-color: #ccc;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
-
 <div class="top-message">
-    <span>YOUR PERFECT PROM LOOK STARTS HERE</span>
+    <span>YOUR PERFECT PROM LOOKS STARTS HERE</span>
 </div>
-
 
 <header>
     <a href="index.html" style="color: inherit; text-decoration: none;">
@@ -28,9 +40,9 @@
     </a>
     <nav class="top-nav">
         <ul>
-            <li><a href="#">Жіночий</a></li>
-            <li><a href="#">Чоловічий</a></li>
-            <li><a href="#" id="profileLink">Особистий кабінет</a></li>
+            <li><a href="index.html?category=women">Жіночий одяг</a></li>
+            <li><a href="index.html?category=men">Чоловічий одяг</a></li>
+            <li><a href="userProfile.html">Особистий кабінет</a></li>
         </ul>
     </nav>
     <div class="header-icons">
@@ -54,7 +66,7 @@
             <img src="../pictures/placeholder.jpg" alt="Main" id="mainPhoto" />
         </div>
 
-        <!-- Опис товару справа -->
+        <!-- Опис товару -->
         <div class="product-info">
             <h1 id="productTitle">Назва товару</h1>
             <p class="article" id="productCode">Код: NO-000000</p>
@@ -74,10 +86,7 @@
             <div class="size-block">
                 <h4>Виберіть розмір:</h4>
                 <div class="sizes">
-                    <button class="size-btn">XS</button>
-                    <button class="size-btn">S</button>
-                    <button class="size-btn">M</button>
-                    <button class="size-btn">L</button>
+                    <!-- Кнопки розмірів будуть динамічно заповнені -->
                 </div>
                 <p class="price-per-day">
                     Вартість оренди: <strong id="rentPrice">1000 грн/добу</strong>
@@ -89,7 +98,7 @@
                 <button class="buy-1-click">Замовити в 1 клік</button>
             </div>
 
-            <!-- Вкладки (Опис, Характеристики, Заміри виробу, Доставка і оплата, Відгук) -->
+            <!-- Вкладки -->
             <div class="tabs">
                 <button class="tab-link active" data-tab="tab-description">Опис</button>
                 <button class="tab-link" data-tab="tab-characteristics">Характеристики</button>
@@ -98,7 +107,7 @@
                 <button class="tab-link" data-tab="tab-review">Відгук</button>
             </div>
 
-            <!-- Контейнер із вмістом вкладок -->
+            <!-- Контейнер для вкладок -->
             <div class="tab-content active" id="tab-description">
                 <p id="descriptionText">
                     Тут з’явиться опис товару з JavaScript...
@@ -125,97 +134,9 @@
     </div>
 </div>
 
-<script>
-    // Логіка вкладок
-    const tabLinks = document.querySelectorAll('.tab-link');
-    const tabContents = document.querySelectorAll('.tab-content');
-    tabLinks.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            tabLinks.forEach((item) => item.classList.remove('active'));
-            btn.classList.add('active');
-            tabContents.forEach((content) => content.classList.remove('active'));
-            const tabId = btn.getAttribute('data-tab');
-            const currentTab = document.getElementById(tabId);
-            currentTab.classList.add('active');
-        });
-    });
-</script>
-
-<script>
-    // Отримання даних товару з sessionStorage
-    const productJSON = sessionStorage.getItem('selectedProduct');
-    if (productJSON) {
-        const product = JSON.parse(productJSON);
-        document.getElementById('breadcrumbTitle').textContent = product.title;
-        document.getElementById('productTitle').textContent = product.title;
-        document.getElementById('mainPhoto').src = product.img;
-        document.getElementById('productPrice').textContent = product.price;
-        document.getElementById('productCode').textContent = 'Код: ' + (product.code || 'NO-000000');
-        document.getElementById('rentPrice').textContent = product.rentPrice || '1000 грн/добу';
-        document.getElementById('descriptionText').textContent = product.description;
-
-        const sizesBlock = document.querySelector('.sizes');
-        sizesBlock.innerHTML = '';
-
-        if (product.sizes && Array.isArray(product.sizes)) {
-            product.sizes.forEach(size => {
-                const button = document.createElement('button');
-                button.className = 'size-btn';
-                button.textContent = size;
-                sizesBlock.appendChild(button);
-            });
-        }
-        product.rating = product.rating || 5;
-        sessionStorage.setItem('selectedProduct', JSON.stringify(product));
-    }
-</script>
-
-<script>
-    // Обробка вибору розміру
-    const sizeButtons = document.querySelectorAll('.size-btn');
-    sizeButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            sizeButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    // Додавання товару до кошика
-    document.querySelector('.add-to-cart').addEventListener('click', function() {
-        const productJSON = sessionStorage.getItem('selectedProduct');
-        if (productJSON) {
-            const product = JSON.parse(productJSON);
-            product.quantity = 1;
-            // Отримуємо вибраний розмір
-            const selectedSizeBtn = document.querySelector('.size-btn.active');
-            product.size = selectedSizeBtn ? selectedSizeBtn.textContent : (product.size || 'N/A');
-            // Забезпечуємо наявність рейтингу та оренди
-            product.rating = product.rating || 5;
-            product.rentPrice = product.rentPrice || '1000 грн/добу';
-
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            // Перевірка наявності товару з однаковим кодом і розміром
-            const existingProductIndex = cart.findIndex(item => item.code === product.code && item.size === product.size);
-            if (existingProductIndex !== -1) {
-                cart[existingProductIndex].quantity += 1;
-            } else {
-                cart.push(product);
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert('Товар додано до кошика!');
-        } else {
-            alert('Дані про товар не знайдено!');
-        }
-    });
-
-    // Обробка переходу до профілю
-    function handleProfileClick(event) {
-        event.preventDefault();
-        window.location.href = 'userProfile.html';
-    }
-    document.getElementById('profileLink').addEventListener('click', handleProfileClick);
-    document.getElementById('profileLinkIcon').addEventListener('click', handleProfileClick);
-</script>
-
+<!-- Підключення зовнішнього JavaScript файлу -->
+<script src="../scripts/product.js"></script>
 </body>
 </html>
+
+

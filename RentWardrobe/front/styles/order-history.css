@@ -1,0 +1,152 @@
+/* Скидання стилів та базові налаштування */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Верхній чорний рядок */
+.top-message {
+    background-color: #000;
+    color: #fff;
+    padding: 5px 0;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+.top-message span {
+    margin: 0 20px;
+}
+
+/* Шапка сайту */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5%;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px; /* Відступ знизу, щоб контент не залипав */
+}
+
+/* Логотип (зліва) */
+.logo {
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+/* Меню (по центру) */
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+.menu ul li {
+    /* Якщо треба, можна додати margin-left/ margin-right */
+}
+.menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 10px;
+}
+.menu ul li a:hover {
+    color: #f00;
+}
+
+/* Правий блок із іконками */
+.header-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 1.2rem;
+}
+.header-icons a {
+    color: #333;
+}
+.header-icons i {
+    cursor: pointer;
+}
+
+/* Основний контейнер */
+.cabinet-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Заголовок сторінки (напр. історія замовлень) */
+.cabinet-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Список замовлень */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Картка замовлення */
+.order-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.order-card h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.order-card p {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.order-card h5 {
+    font-size: 18px;
+    margin: 15px 0 10px;
+}
+.order-card ul {
+    list-style: none;
+    padding-left: 0; /* При бажанні додати відступ, поставте 20px */
+}
+.order-card ul li {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+/* Посилання загалом */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .menu ul {
+        flex-direction: column;
+    }
+    .cabinet-container {
+        padding: 0 10px;
+    }
+}
+
