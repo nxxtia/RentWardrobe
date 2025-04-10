@@ -142,11 +142,13 @@ a:hover {
         flex-direction: column;
         gap: 10px;
     }
+
     .menu ul {
         flex-direction: column;
     }
+
     .cabinet-container {
         padding: 0 10px;
     }
-}
 
+}
