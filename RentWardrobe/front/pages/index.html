@@ -6,7 +6,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-    <link rel="stylesheet" href="/styles/index.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <script>
+        if (!localStorage.getItem('currentUserEmail')) {
+            window.location.href = 'auth.html';
+        }
+    </script>
 </head>
 <body>
 <div class="top-message">
@@ -26,6 +31,7 @@
                     <ul>
                         <li><a href="#" id="eveningDressesLink">Вечірні сукні</a></li>
                         <li><a href="#" id="accessoriesLink">Аксесуари</a></li>
+                        <li><a href="#" id="womanShoesLink">Взуття</a></li>
                     </ul>
                 </div>
             </li>
@@ -34,7 +40,7 @@
                 <div class="mega-menu">
                     <ul>
                         <li><a href="#" id="suitsLink">Костюми</a></li>
-                        <li><a href="#" id="shoesLink">Взуття</a></li>
+                        <li><a href="#" id="manShoesLink">Взуття</a></li>
                     </ul>
                 </div>
             </li>
@@ -59,6 +65,9 @@
                 <li><a href="#" class="color-filter" data-color="Чорний">Чорний</a></li>
                 <li><a href="#" class="color-filter" data-color="Білий">Білий</a></li>
                 <li><a href="#" class="color-filter" data-color="Червоний">Червоний</a></li>
+                <li><a href="#" class="color-filter" data-color="Синій">Синій</a></li>
+                <li><a href="#" class="color-filter" data-color="Коричневий">Коричневий</a></li>
+                <li><a href="#" class="color-filter" data-color="Сірий">Сірий</a></li>
             </ul>
         </div>
         <div class="filter-group">
@@ -69,12 +78,13 @@
                 <li><a href="#" class="size-filter" data-size="M">M</a></li>
                 <li><a href="#" class="size-filter" data-size="L">L</a></li>
                 <li><a href="#" class="size-filter" data-size="XL">XL</a></li>
+                <li><a href="#" class="size-filter" data-size="One size">One size</a></li>
             </ul>
         </div>
     </aside>
     <section class="content-area">
         <div class="breadcrumbs">
-            <a href="#">RentWardrobe</a> / <a href="#">Усі Товари</a>
+            <a href="#">RentWardrobe</a> / <a href="#" id="breadcrumbCategory">Усі Товари</a>
         </div>
         <div class="content-header">
             <h2>Товари</h2>
@@ -90,186 +100,7 @@
         <div class="product-grid" id="productGrid"></div>
     </section>
 </div>
-<script>
-    async function loadProducts() {
-        try {
-            const res = await fetch('/api/products');
-            const products = await res.json();
-            sessionStorage.setItem('allProducts', JSON.stringify(products));
-            displayProducts(products);
-        } catch (err) {
-            console.error('Помилка при завантаженні товарів', err);
-        }
-    }
-
-    function displayProducts(products) {
-        const grid = document.getElementById('productGrid');
-        grid.innerHTML = '';
-        products.forEach(product => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.setAttribute('data-product', JSON.stringify(product));
-            card.innerHTML = `
-          <i class="fa-regular fa-heart heart-icon"></i>
-          <img src="${product.img}" alt="${product.title}" />
-          <h3>${product.title}</h3>
-          <button class="details-btn">Детальніше</button>
-        `;
-            grid.appendChild(card);
-        });
-        attachDetailsHandlers();
-        initHeartIcons();
-    }
-
-    function attachDetailsHandlers() {
-        const detailButtons = document.querySelectorAll('.details-btn');
-        detailButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const productCard = e.target.closest('.product-card');
-                const productData = productCard.getAttribute('data-product');
-                sessionStorage.setItem('selectedProduct', productData);
-                window.location.href = 'product.html';
-            });
-        });
-    }
-
-    document.getElementById('eveningDressesLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
-        const filtered = allProducts.filter(product => product.code.startsWith('NO-'));
-        displayProducts(filtered);
-    });
-
-    document.getElementById('accessoriesLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
-        const filtered = allProducts.filter(product => product.code.startsWith('ACC-'));
-        displayProducts(filtered);
-    });
-
-    document.getElementById('suitsLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
-        const filtered = allProducts.filter(product => product.code.startsWith('MSC-'));
-        displayProducts(filtered);
-    });
-
-    document.getElementById('shoesLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
-        const filtered = allProducts.filter(product => product.code.startsWith('WSH-'));
-        displayProducts(filtered);
-    });
-
-    const colorLinks = document.querySelectorAll('.color-filter');
-    const colorMapping = {
-        "чорний": "чор",
-        "білий": "біл",
-        "червоний": ["черв", "багр"]
-    };
-    colorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const filterText = this.getAttribute('data-color').toLowerCase();
-            const baseFilter = colorMapping[filterText] || filterText;
-            const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
-            const filtered = allProducts.filter(p => p.title.toLowerCase().includes(baseFilter));
-            displayProducts(filtered);
-        });
-    });
-
-    const sizeLinks = document.querySelectorAll('.size-filter');
-    sizeLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const size = this.getAttribute('data-size');
-            const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
-            const filtered = allProducts.filter(p => Array.isArray(p.sizes) && p.sizes.includes(size));
-            displayProducts(filtered);
-        });
-    });
-
-    document.getElementById('toggleSearch').addEventListener('click', function (e) {
-        e.preventDefault();
-        const input = document.getElementById('searchInput');
-        input.style.display = input.style.display === 'none' ? 'inline-block' : 'none';
-        input.focus();
-    });
-
-    document.getElementById('searchInput').addEventListener('input', function () {
-        const query = this.value.toLowerCase();
-        const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
-        const filtered = allProducts.filter(p => p.title.toLowerCase().includes(query));
-        displayProducts(filtered);
-    });
-
-    function handleProfileClick(event) {
-        event.preventDefault();
-        window.location.href = 'userProfile.html';
-    }
-
-    document.getElementById('profileLink').addEventListener('click', handleProfileClick);
-    document.getElementById('profileLinkIcon').addEventListener('click', handleProfileClick);
-
-    async function initHeartIcons() {
-        const email = localStorage.getItem('currentUserEmail');
-        const heartIcons = document.querySelectorAll('.heart-icon');
-        let favorites = [];
-        if (email) {
-            try {
-                const res = await fetch(`/api/user/${email}`);
-                const user = await res.json();
-                favorites = user.favorites || [];
-            } catch (err) {
-                console.error('Помилка при отриманні favorites', err);
-            }
-        }
-        heartIcons.forEach(icon => {
-            const productCard = icon.closest('.product-card');
-            const productData = JSON.parse(productCard.getAttribute('data-product'));
-            if (favorites.includes(productData.code)) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid');
-            }
-            icon.addEventListener('click', async (e) => {
-                e.stopPropagation();
-                if (!email) {
-                    alert('Будь ласка, увійдіть в акаунт, щоб додавати в обране.');
-                    return;
-                }
-                if (icon.classList.contains('fa-regular')) {
-                    try {
-                        const res = await fetch(`/api/user/${email}/favorites`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ productCode: JSON.parse(productCard.getAttribute('data-product')).code })
-                        });
-                        if (res.ok) {
-                            icon.classList.remove('fa-regular');
-                            icon.classList.add('fa-solid');
-                        }
-                    } catch (err) {
-                        console.error('Помилка при додаванні в обране', err);
-                    }
-                } else {
-                    try {
-                        const res = await fetch(`/api/user/${email}/favorites/${JSON.parse(productCard.getAttribute('data-product')).code}`, {
-                            method: 'DELETE'
-                        });
-                        if (res.ok) {
-                            icon.classList.remove('fa-solid');
-                            icon.classList.add('fa-regular');
-                        }
-                    } catch (err) {
-                        console.error('Помилка при видаленні з обраного', err);
-                    }
-                }
-            });
-        });
-    }
-
-    window.onload = loadProducts;
-</script>
+<script src="../scripts/index.js"></script>
 </body>
 </html>
 

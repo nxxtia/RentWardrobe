@@ -59,6 +59,7 @@ header {
 }
 .header-icons i {
     cursor: pointer;
+    color: #333;
 }
 
 /* Основний контейнер */
