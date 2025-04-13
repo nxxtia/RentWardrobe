@@ -95,6 +95,21 @@ function applyFilters(allProducts) {
         );
     }
 
+    const sortOption = document.getElementById('sortSelect').value;
+    if (sortOption === 'price-asc') {
+        filteredProducts.sort((a, b) => {
+            const priceA = parseInt((a.price || '').replace(/\D/g, ''), 10);
+            const priceB = parseInt((b.price || '').replace(/\D/g, ''), 10);
+            return priceA - priceB;
+        });
+    } else if (sortOption === 'price-desc') {
+        filteredProducts.sort((a, b) => {
+            const priceA = parseInt((a.price || '').replace(/\D/g, ''), 10);
+            const priceB = parseInt((b.price || '').replace(/\D/g, ''), 10);
+            return priceB - priceA;
+        });
+    }
+
     displayProducts(filteredProducts);
     updateBreadcrumbs();
 }
@@ -313,3 +328,8 @@ async function initHeartIcons() {
 }
 
 window.onload = loadProducts;
+
+document.getElementById('sortSelect').addEventListener('change', function () {
+    const allProducts = JSON.parse(sessionStorage.getItem('allProducts')) || [];
+    applyFilters(allProducts);
+});
