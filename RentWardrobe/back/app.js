@@ -39,11 +39,22 @@ app.post('/api/register', (req, res) => {
     const db = readDB();
     const { email, password, firstName, lastName } = req.body;
 
+    // Перевірка валідності email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        return res.status(400).json({ message: 'Невалідна електронна пошта' });
+    }
+
+    // Перевірка довжини паролю
+    if (password.length < 8) {
+        return res.status(400).json({ message: 'Пароль має містити щонайменше 8 символів' });
+    }
+
     if (db.users.find(u => u.email === email)) {
         return res.status(400).json({ message: 'Користувач вже існує' });
     }
 
-    db.users.push({ email, password, firstName, lastName, favorites: [] });
+    db.users.push({ email, password, firstName, lastName, favorites: [], orders: [] });
     writeDB(db);
 
     res.json({ message: 'Реєстрація успішна' });
@@ -82,8 +93,10 @@ app.post('/api/order', (req, res) => {
 
     const user = db.users.find(u => u.email === email);
     if (user) {
+        if (!user.orders) {
+            user.orders = [];
+        }
         user.orders.push(orderId);
-        writeDB(db);
     }
 
     writeDB(db);
