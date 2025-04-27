@@ -11,14 +11,23 @@
         "NO-000002",
         "NO-000003",
         "NO-000008",
-        "NO-000007",
-        "NO-000006"
+        "NO-000007"
       ],
       "orders": [
         1712425000001,
         1712425000002,
         1744291394747
       ]
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "12345678",
+      "firstName": "Test",
+      "lastName": "Test",
+      "favorites": [
+        "NO-000001"
+      ],
+      "orders": []
     }
   ],
   "orders": [
